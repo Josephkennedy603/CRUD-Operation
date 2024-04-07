@@ -32,7 +32,6 @@ const Create = ({refetchUser}) => {
 
   return (
 <div className="main-input">
-    <h1>create</h1>
       <label htmlFor="Name">Name:</label>
       <input
         name="Name:"

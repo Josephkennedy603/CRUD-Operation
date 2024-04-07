@@ -2,59 +2,70 @@ import React from "react";
 import { useState } from "react";
 import {userCollectionRef} from './App'
 import { addDoc } from "firebase/firestore";
+import './create.css'
 
-const Create = () => {
+const Create = ({refetchUser}) => {
   const [name, setName] = useState();
   const [age, setAge] = useState();
   const [email, setEmail] = useState();
   const [pnumber, setPnumber] = useState();
 
+  console.log({age, pnumber});
+
   const data1 ={
     Name:name,
     Age:age,
     Email:email,
-    Pnumer:pnumber,
+    Pnumber:pnumber,
   };
 
   const handleClick = async () => {
     const data = await addDoc(userCollectionRef, data1);
-    console.log(data);
+    setName("");
+    setAge("");
+    setEmail("");
+    setPnumber("");
+
+    // refetchUser();
+    console.log("for create ", data);
   }
 
   return (
-<div>
-    <h1>create</h1>
-    
+<div className="main-input">
       <label htmlFor="Name">Name:</label>
       <input
         name="Name:"
         type="text"
+        value={name}
         onChange={(e) => setName(e.target.value)}
         required
       />
 
-      <label htmlFor="Age">Age:</label>
+      <label For="Age">Age:</label>
       <input
-        type="text"
+        type="number"
         name="Age"
-        onChange={(e) => setAge(e.target.value)}
+        value={age}
+        onChange={(e) => setAge(Number(e.target.value))}
         required
       />
 
       <label htmlFor="Email">Email:</label>
-      <input type="Email" onChange={(e) => setEmail(e.target.value)} required />
+      <input type="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
 
       <label htmlFor="Phone Number">Phone Number:</label>
       <input
         type="number"
         name="Phone Number"
-        onChange={(e) => setPnumber(e.target.value)}
+        value={pnumber}
+        onChange={(e) => setPnumber(Number(e.target.value)) }
         required
       />
-
-      <input type="submit" onClick={handleClick} />
-   
+      <input type="submit" onClick={handleClick}/>
+      
     </div>
+
+    
   );
 };
 
