@@ -1,0 +1,4 @@
+.main-input label,
+input {
+  display: flex;
+}
